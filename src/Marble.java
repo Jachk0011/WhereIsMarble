@@ -9,34 +9,7 @@ import java.util.StringTokenizer;
 
 public class Marble {
 	static int[] arr, search ;
-	static Marble m = new Marble();
-	
-	public int binarySearch(int[] sorted, int x)
-	{
-		int lowerBound = 0, upperBound = sorted.length-1, index = -1;
-		
-		while(lowerBound < upperBound)
-		{
-			int middlePoint = (lowerBound+upperBound)/2;
-			if(x == sorted[middlePoint])
-			{
-				index = middlePoint;
-				break;
-			}
-			else
-			{
-				if(x < sorted[middlePoint])
-					upperBound = middlePoint - 1;
-				else
-					lowerBound = middlePoint - 1;					
-			}
-		}
-		
-		if (lowerBound == upperBound && sorted[lowerBound] == x)
-			index = lowerBound;
-		
-		return index;
-	}
+	static Marble m = new Marble();	
 	
 	public int binarySearchRecursive(int[] sorted, int x, int lowerB, int upperB)
 	{
@@ -78,7 +51,7 @@ public class Marble {
 			 String linea;
 			 int num = Integer.MIN_VALUE, 
 				 ask = Integer.MIN_VALUE, 
-				 size = 0, case_ = 0;
+				 size = 0, case_ = 1;
 			 
 			 
 			 while((linea=br.readLine())!=null)
@@ -92,8 +65,7 @@ public class Marble {
 				 }
 				 
 				 arr = new int[num];
-				 size = num + ask;
-				 //System.out.println("\nsize: " + size);
+				 size = num + ask;			 
 				 
 				 if(num == 0 && ask == 0)
 					 System.exit(0);
@@ -108,21 +80,20 @@ public class Marble {
 					 for(int i=0; i < ask; i++)
 						 search[i] = Integer.parseInt(br.readLine());
 				     
-					 for(int i=0; i < search.length; i++)
+					 for(int i=0, j = search.length; i < search.length; i++, --j)
 					 {
 						 int index = m.binarySearchRecursive(arr, search[i], 0 , arr.length-1);
-						 //System.out.println("CASE # " + i);
+						 if(i==0)
+						 {							 
+							 System.out.println("CASE # " + case_);
+							 case_++;
+						 }
+						
 						 if(index >= 0)
 							 System.out.println(search[i] + " found at " + (index+1));
 						 else
 							 System.out.println(search[i] + " not found");
-					 }
-					 
-				     
-					 
-					 /*//PRINTING THE ARRAY WITH THE VALUES OF MARBLES
-				     for(int i=0; i<arr.length; i++)
-				    	 System.out.print(arr[i] + " ");*/
+					 }					 
 				 }		         
 			 }
 	      }
@@ -163,22 +134,6 @@ public class Marble {
 	}
 
 	public static void main(String[] args) throws IOException {
-		/*int marble = 0, ask=0;
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		
-		Marble m = new Marble();
-		marble = 4; 
-		ask = 1;
-		int search = 3;
-		int[] hand = {2,3,5,1};
-		m.countingSort(hand);
-		int r = m.binarySearchRecursive(hand, search, 0 , hand.length-1);
-		if(r >= 0)
-			System.out.println(search + " found at " + r);
-		else
-			System.out.println(search + " not found");*/
-		
 		
 		m.readFile();
 		
